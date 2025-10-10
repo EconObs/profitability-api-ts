@@ -1,0 +1,111 @@
+openapi: 3.0.0
+info:
+  title: Profitability API
+  description: Calculadora de Rentabilidade Líquida em contratos de Renda Fixa (CDB - LC - LCI - LCA)
+  version: 1.0.0
+
+paths:
+  /api/taxas:
+    get:
+      summary: Obter Taxas
+      responses:
+        '200':
+          description: Taxas obtidas com sucesso
+          content:
+            application/json:
+              example: 
+                selic: 11.75%
+                ipca: 4.53%
+
+  /api/prop:
+    get:
+      summary: Calcular Taxa Proporcional (LCA / LCI)
+      parameters:
+        - name: rate
+          in: query
+          description: Taxa bruta de juros
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Cálculo de proporção realizado com sucesso
+          content:
+            application/json:
+              example: 
+                prop: 11.75%
+
+                
+  /api/pre:
+    get:
+      summary: Calcular CDB / LC Pré Fixado
+      parameters:
+        - name: rate
+          in: query
+          description: Taxa de juros
+          required: true
+          schema:
+            type: number
+        - name: term
+          in: query
+          description: Prazo em dias úteis
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Cálculo pré realizado com sucesso
+          content:
+            application/json:
+              example:
+                liquid: 9.40%
+                tribute: 20.00%
+  /api/pos:
+    get:
+      summary: Calcular CDB / LC Pós Fixado
+      parameters:
+        - name: rate
+          in: query
+          description: Taxa de juros
+          required: true
+          schema:
+            type: number
+        - name: term
+          in: query
+          description: Prazo em dias úteis
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Cálculo pós realizado com sucesso
+          content:
+            application/json:
+              example:
+                liquid: 9.40%
+                tribute: 17.50%
+
+  /api/ipca:
+    get:
+      summary: Calcular CDB IPCA+
+      parameters:
+        - name: rate
+          in: query
+          description: Taxa de juros
+          required: true
+          schema:
+            type: number
+        - name: term
+          in: query
+          description: Prazo em dias úteis
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Cálculo ipca realizado com sucesso
+          content:
+            application/json:
+              example:
+                liquid: 9.40%
+                tribute: 22.50%
